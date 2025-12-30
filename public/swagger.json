@@ -625,6 +625,236 @@
         }
       }
     },
+    "/api/contract-compliance/{id}": {
+      "get": {
+        "summary": "Get contract compliance record by ID",
+        "tags": [
+          "Contract Compliance"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract compliance record details"
+          },
+          "404": {
+            "description": "Contract compliance record not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update contract compliance record",
+        "tags": [
+          "Contract Compliance"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contract compliance record updated successfully"
+          },
+          "404": {
+            "description": "Contract compliance record not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete contract compliance record",
+        "tags": [
+          "Contract Compliance"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract compliance record deleted successfully"
+          },
+          "404": {
+            "description": "Contract compliance record not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/contract-compliance": {
+      "get": {
+        "summary": "Get all contract compliance records",
+        "description": "Retrieve a list of all contract compliance checks with optional filtering",
+        "tags": [
+          "Contract Compliance"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "contract_id",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by contract ID"
+          },
+          {
+            "in": "query",
+            "name": "result",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by compliance result"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 100
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of contract compliance records",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new contract compliance record",
+        "description": "Create a new contract compliance check record",
+        "tags": [
+          "Contract Compliance"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "compliance_id",
+                  "contract_id",
+                  "compliance_check_date",
+                  "compliance_officer",
+                  "compliance_result"
+                ],
+                "properties": {
+                  "compliance_id": {
+                    "type": "string"
+                  },
+                  "contract_id": {
+                    "type": "string"
+                  },
+                  "compliance_check_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "compliance_officer": {
+                    "type": "string"
+                  },
+                  "compliance_result": {
+                    "type": "string"
+                  },
+                  "non_compliance_issues": {
+                    "type": "string"
+                  },
+                  "corrective_actions": {
+                    "type": "string"
+                  },
+                  "follow_up_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "audit_trail_ref": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contract compliance record created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
     "/api/contract-drafts/{id}": {
       "get": {
         "summary": "Get draft by ID",
@@ -1232,6 +1462,237 @@
           },
           "400": {
             "description": "Invalid input data"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/contract-obligations/{id}": {
+      "get": {
+        "summary": "Get contract obligation by ID",
+        "tags": [
+          "Contract Obligations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract obligation details"
+          },
+          "404": {
+            "description": "Contract obligation not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update contract obligation",
+        "tags": [
+          "Contract Obligations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contract obligation updated successfully"
+          },
+          "404": {
+            "description": "Contract obligation not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete contract obligation",
+        "tags": [
+          "Contract Obligations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract obligation deleted successfully"
+          },
+          "404": {
+            "description": "Contract obligation not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/contract-obligations": {
+      "get": {
+        "summary": "Get all contract obligations",
+        "description": "Retrieve a list of all contract obligations with optional filtering",
+        "tags": [
+          "Contract Obligations"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "contract_id",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by contract ID"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by fulfillment status"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 100
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of contract obligations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new contract obligation",
+        "description": "Create a new contract obligation record",
+        "tags": [
+          "Contract Obligations"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "obligation_id",
+                  "contract_id",
+                  "obligation_title",
+                  "responsible_party",
+                  "due_date",
+                  "fulfillment_status"
+                ],
+                "properties": {
+                  "obligation_id": {
+                    "type": "string"
+                  },
+                  "contract_id": {
+                    "type": "string"
+                  },
+                  "obligation_title": {
+                    "type": "string"
+                  },
+                  "obligation_details": {
+                    "type": "string"
+                  },
+                  "responsible_party": {
+                    "type": "string"
+                  },
+                  "due_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "fulfillment_status": {
+                    "type": "string"
+                  },
+                  "fulfillment_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "remarks": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contract obligation created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
           },
           "500": {
             "description": "Server error"

@@ -7,7 +7,7 @@ import ChartWidget from '@/components/dashboard/ChartWidget';
 import RecentActivities from '@/components/dashboard/RecentActivities';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { FileText, AlertTriangle, CheckCircle, Clock, Users, FileCheck, ClipboardCheck, RefreshCw } from 'lucide-react';
+import { FileText, AlertTriangle, CheckCircle, Clock, Users, FileCheck, ClipboardCheck, RefreshCw, ClipboardList, Shield } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DashboardPage() {
@@ -245,6 +245,34 @@ export default function DashboardPage() {
                 <p className="text-xs text-gray-400 mt-2">
                   {renewalsCount} total renewals
                 </p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/contract-obligations">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <ClipboardList className="h-5 w-5 text-amber-600" />
+                  <CardTitle className="text-lg">Contract Obligations</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Track and manage contract obligations and deliverables</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/contract-compliance">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <Shield className="h-5 w-5 text-emerald-600" />
+                  <CardTitle className="text-lg">Contract Compliance</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Monitor contract compliance and regulatory adherence</p>
               </CardContent>
             </Card>
           </Link>
