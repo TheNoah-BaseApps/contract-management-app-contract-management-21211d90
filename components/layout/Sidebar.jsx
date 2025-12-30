@@ -11,12 +11,15 @@ import {
   FolderOpen,
   ScrollText,
   BarChart3,
-  User
+  User,
+  CheckCircle
 } from 'lucide-react';
 
 const navigation = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
   { name: 'Contracts', href: '/contracts', icon: FileText },
+  { name: 'Contract Requests', href: '/contract-requests', icon: FileText },
+  { name: 'Contract Approvals', href: '/contract-approvals', icon: CheckCircle },
   { name: 'Drafts', href: '/drafts', icon: FileEdit },
   { name: 'Monitoring', href: '/monitoring', icon: Activity },
   { name: 'Documents', href: '/documents', icon: FolderOpen },

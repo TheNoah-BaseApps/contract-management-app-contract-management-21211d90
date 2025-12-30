@@ -152,6 +152,244 @@
         }
       }
     },
+    "/api/contract-approvals/{id}": {
+      "get": {
+        "summary": "Get contract approval by ID",
+        "tags": [
+          "Contract Approvals"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract approval details"
+          },
+          "404": {
+            "description": "Contract approval not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update contract approval",
+        "tags": [
+          "Contract Approvals"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contract approval updated"
+          },
+          "404": {
+            "description": "Contract approval not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete contract approval",
+        "tags": [
+          "Contract Approvals"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract approval deleted"
+          },
+          "404": {
+            "description": "Contract approval not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/contract-approvals": {
+      "get": {
+        "summary": "Get all contract approvals",
+        "description": "Retrieve list of all contract approvals with pagination and filtering",
+        "tags": [
+          "Contract Approvals"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Items per page"
+          },
+          {
+            "in": "query",
+            "name": "approval_status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by approval status"
+          },
+          {
+            "in": "query",
+            "name": "contract_id",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by contract ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of contract approvals",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new contract approval",
+        "description": "Submit a new contract approval record",
+        "tags": [
+          "Contract Approvals"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "approval_id",
+                  "contract_id",
+                  "approver_name",
+                  "approval_level",
+                  "approval_status"
+                ],
+                "properties": {
+                  "approval_id": {
+                    "type": "string"
+                  },
+                  "contract_id": {
+                    "type": "string"
+                  },
+                  "approver_name": {
+                    "type": "string"
+                  },
+                  "approval_level": {
+                    "type": "string"
+                  },
+                  "approval_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "approval_status": {
+                    "type": "string"
+                  },
+                  "comments": {
+                    "type": "string"
+                  },
+                  "approval_document_ref": {
+                    "type": "string"
+                  },
+                  "escalation_required": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contract approval created successfully"
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
     "/api/contract-drafts/{id}": {
       "get": {
         "summary": "Get draft by ID",
@@ -259,6 +497,240 @@
             "bearerAuth": []
           }
         ]
+      }
+    },
+    "/api/contract-requests/{id}": {
+      "get": {
+        "summary": "Get contract request by ID",
+        "tags": [
+          "Contract Requests"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract request details"
+          },
+          "404": {
+            "description": "Contract request not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update contract request",
+        "tags": [
+          "Contract Requests"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contract request updated"
+          },
+          "404": {
+            "description": "Contract request not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete contract request",
+        "tags": [
+          "Contract Requests"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract request deleted"
+          },
+          "404": {
+            "description": "Contract request not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/contract-requests": {
+      "get": {
+        "summary": "Get all contract requests",
+        "description": "Retrieve list of all contract requests with pagination and filtering",
+        "tags": [
+          "Contract Requests"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 10
+            },
+            "description": "Items per page"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by status"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of contract requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "total": {
+                      "type": "integer"
+                    },
+                    "page": {
+                      "type": "integer"
+                    },
+                    "limit": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new contract request",
+        "description": "Submit a new contract request",
+        "tags": [
+          "Contract Requests"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "request_id",
+                  "requester_name",
+                  "contract_type",
+                  "purpose_description",
+                  "expected_start_date",
+                  "expected_end_date",
+                  "priority_level",
+                  "department_name"
+                ],
+                "properties": {
+                  "request_id": {
+                    "type": "string"
+                  },
+                  "requester_name": {
+                    "type": "string"
+                  },
+                  "contract_type": {
+                    "type": "string"
+                  },
+                  "purpose_description": {
+                    "type": "string"
+                  },
+                  "expected_start_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "expected_end_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "priority_level": {
+                    "type": "string"
+                  },
+                  "budget_estimate": {
+                    "type": "string"
+                  },
+                  "department_name": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contract request created successfully"
+          },
+          "400": {
+            "description": "Invalid request data"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
       }
     },
     "/api/contracts/{id}": {

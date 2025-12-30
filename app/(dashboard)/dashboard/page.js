@@ -8,6 +8,7 @@ import RecentActivities from '@/components/dashboard/RecentActivities';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
 import { FileText, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import Link from 'next/link';
 
 export default function DashboardPage() {
   const [stats, setStats] = useState(null);
@@ -93,6 +94,49 @@ export default function DashboardPage() {
           trend={stats?.alertsTrend}
           color="red"
         />
+      </div>
+
+      <div>
+        <h2 className="text-2xl font-bold text-gray-900 mb-4">Workflows</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Link href="/contract-requests">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <FileText className="h-5 w-5 text-blue-600" />
+                  <CardTitle className="text-lg">Contract Requests</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Submit and track contract requests</p>
+                {stats?.pendingRequests !== undefined && (
+                  <p className="text-xs text-gray-400 mt-2">
+                    {stats.pendingRequests} pending requests
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/contract-approvals">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <CardTitle className="text-lg">Contract Approvals</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Manage contract approval workflow</p>
+                {stats?.pendingApprovals !== undefined && (
+                  <p className="text-xs text-gray-400 mt-2">
+                    {stats.pendingApprovals} pending approvals
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
