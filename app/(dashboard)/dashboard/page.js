@@ -7,7 +7,7 @@ import ChartWidget from '@/components/dashboard/ChartWidget';
 import RecentActivities from '@/components/dashboard/RecentActivities';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { FileText, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
+import { FileText, AlertTriangle, CheckCircle, Clock, Users, FileCheck } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DashboardPage() {
@@ -131,6 +131,44 @@ export default function DashboardPage() {
                 {stats?.pendingApprovals !== undefined && (
                   <p className="text-xs text-gray-400 mt-2">
                     {stats.pendingApprovals} pending approvals
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/contract-negotiations">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <Users className="h-5 w-5 text-purple-600" />
+                  <CardTitle className="text-lg">Contract Negotiations</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Manage and track contract negotiation processes</p>
+                {stats?.activeNegotiations !== undefined && (
+                  <p className="text-xs text-gray-400 mt-2">
+                    {stats.activeNegotiations} active negotiations
+                  </p>
+                )}
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/contract-executions">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <FileCheck className="h-5 w-5 text-indigo-600" />
+                  <CardTitle className="text-lg">Contract Executions</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Track contract execution and signing</p>
+                {stats?.executedContracts !== undefined && (
+                  <p className="text-xs text-gray-400 mt-2">
+                    {stats.executedContracts} executed contracts
                   </p>
                 )}
               </CardContent>

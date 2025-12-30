@@ -449,6 +449,283 @@
         ]
       }
     },
+    "/api/contract-executions/{id}": {
+      "get": {
+        "summary": "Get a contract execution by ID",
+        "description": "Retrieve details of a specific contract execution",
+        "tags": [
+          "Contract Executions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Contract execution ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved contract execution"
+          },
+          "404": {
+            "description": "Contract execution not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a contract execution",
+        "description": "Update details of a specific contract execution",
+        "tags": [
+          "Contract Executions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contract execution updated successfully"
+          },
+          "404": {
+            "description": "Contract execution not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a contract execution",
+        "description": "Remove a contract execution from the system",
+        "tags": [
+          "Contract Executions"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract execution deleted successfully"
+          },
+          "404": {
+            "description": "Contract execution not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/contract-executions": {
+      "get": {
+        "summary": "Get all contract executions",
+        "description": "Retrieve a list of all contract executions with pagination",
+        "tags": [
+          "Contract Executions"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Items per page"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by status"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved contract executions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "pagination": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new contract execution",
+        "description": "Create a new contract execution record",
+        "tags": [
+          "Contract Executions"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "contract_id",
+                  "contract_title",
+                  "contract_type",
+                  "initiating_department",
+                  "effective_date",
+                  "status"
+                ],
+                "properties": {
+                  "contract_id": {
+                    "type": "string"
+                  },
+                  "contract_title": {
+                    "type": "string"
+                  },
+                  "contract_type": {
+                    "type": "string"
+                  },
+                  "contract_parties": {
+                    "type": "string"
+                  },
+                  "contract_owner_id": {
+                    "type": "string"
+                  },
+                  "initiating_department": {
+                    "type": "string"
+                  },
+                  "effective_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "expiry_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "contract_value": {
+                    "type": "string"
+                  },
+                  "payment_terms": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "signing_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "execution_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "signed_by_internal": {
+                    "type": "string"
+                  },
+                  "signed_by_external": {
+                    "type": "string"
+                  },
+                  "contract_documents": {
+                    "type": "string"
+                  },
+                  "contract_terms": {
+                    "type": "string"
+                  },
+                  "obligations_summary": {
+                    "type": "string"
+                  },
+                  "renewal_clause": {
+                    "type": "string"
+                  },
+                  "termination_clause": {
+                    "type": "string"
+                  },
+                  "compliance_requirements": {
+                    "type": "string"
+                  },
+                  "confidentiality_level": {
+                    "type": "string"
+                  },
+                  "audit_trail": {
+                    "type": "string"
+                  },
+                  "remarks": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contract execution created successfully"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
     "/api/contract-monitoring/{id}": {
       "get": {
         "summary": "Get monitoring record by ID",
@@ -497,6 +774,234 @@
             "bearerAuth": []
           }
         ]
+      }
+    },
+    "/api/contract-negotiations/{id}": {
+      "get": {
+        "summary": "Get a contract negotiation by ID",
+        "description": "Retrieve details of a specific contract negotiation",
+        "tags": [
+          "Contract Negotiations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Contract negotiation ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved contract negotiation"
+          },
+          "404": {
+            "description": "Contract negotiation not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a contract negotiation",
+        "description": "Update details of a specific contract negotiation",
+        "tags": [
+          "Contract Negotiations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contract negotiation updated successfully"
+          },
+          "404": {
+            "description": "Contract negotiation not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a contract negotiation",
+        "description": "Remove a contract negotiation from the system",
+        "tags": [
+          "Contract Negotiations"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract negotiation deleted successfully"
+          },
+          "404": {
+            "description": "Contract negotiation not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/contract-negotiations": {
+      "get": {
+        "summary": "Get all contract negotiations",
+        "description": "Retrieve a list of all contract negotiations with pagination",
+        "tags": [
+          "Contract Negotiations"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "default": 1
+            },
+            "description": "Page number"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Items per page"
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by negotiation status"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved contract negotiations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "pagination": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new contract negotiation",
+        "description": "Create a new contract negotiation record",
+        "tags": [
+          "Contract Negotiations"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "negotiation_id",
+                  "contract_id",
+                  "negotiation_start_date",
+                  "negotiation_status"
+                ],
+                "properties": {
+                  "negotiation_id": {
+                    "type": "string"
+                  },
+                  "contract_id": {
+                    "type": "string"
+                  },
+                  "negotiation_start_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "negotiation_end_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "negotiation_status": {
+                    "type": "string"
+                  },
+                  "internal_stakeholders": {
+                    "type": "string"
+                  },
+                  "external_parties": {
+                    "type": "string"
+                  },
+                  "major_changes_made": {
+                    "type": "string"
+                  },
+                  "negotiation_mode": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contract negotiation created successfully"
+          },
+          "400": {
+            "description": "Invalid input data"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
       }
     },
     "/api/contract-requests/{id}": {

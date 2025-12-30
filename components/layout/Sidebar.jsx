@@ -12,7 +12,9 @@ import {
   ScrollText,
   BarChart3,
   User,
-  CheckCircle
+  CheckCircle,
+  Users,
+  FileCheck
 } from 'lucide-react';
 
 const navigation = [
@@ -20,6 +22,8 @@ const navigation = [
   { name: 'Contracts', href: '/contracts', icon: FileText },
   { name: 'Contract Requests', href: '/contract-requests', icon: FileText },
   { name: 'Contract Approvals', href: '/contract-approvals', icon: CheckCircle },
+  { name: 'Contract Negotiations', href: '/contract-negotiations', icon: Users },
+  { name: 'Contract Executions', href: '/contract-executions', icon: FileCheck },
   { name: 'Drafts', href: '/drafts', icon: FileEdit },
   { name: 'Monitoring', href: '/monitoring', icon: Activity },
   { name: 'Documents', href: '/documents', icon: FolderOpen },
