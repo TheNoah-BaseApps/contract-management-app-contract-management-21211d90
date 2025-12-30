@@ -7,13 +7,15 @@ import ChartWidget from '@/components/dashboard/ChartWidget';
 import RecentActivities from '@/components/dashboard/RecentActivities';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { FileText, AlertTriangle, CheckCircle, Clock, Users, FileCheck } from 'lucide-react';
+import { FileText, AlertTriangle, CheckCircle, Clock, Users, FileCheck, ClipboardCheck, RefreshCw } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DashboardPage() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [auditsCount, setAuditsCount] = useState(0);
+  const [renewalsCount, setRenewalsCount] = useState(0);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -39,7 +41,45 @@ export default function DashboardPage() {
       }
     };
 
+    const fetchAuditsCount = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await fetch('/api/contract-audits', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.data)) {
+            setAuditsCount(data.data.length);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch audits count:', err);
+      }
+    };
+
+    const fetchRenewalsCount = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await fetch('/api/contract-renewals', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.data)) {
+            setRenewalsCount(data.data.length);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch renewals count:', err);
+      }
+    };
+
     fetchStats();
+    fetchAuditsCount();
+    fetchRenewalsCount();
   }, []);
 
   if (loading) {
@@ -171,6 +211,40 @@ export default function DashboardPage() {
                     {stats.executedContracts} executed contracts
                   </p>
                 )}
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/contract-audits">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <ClipboardCheck className="h-5 w-5 text-teal-600" />
+                  <CardTitle className="text-lg">Contract Audits</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Manage contract audit records and compliance findings</p>
+                <p className="text-xs text-gray-400 mt-2">
+                  {auditsCount} total audits
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/contract-renewals">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <RefreshCw className="h-5 w-5 text-cyan-600" />
+                  <CardTitle className="text-lg">Contract Renewals</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Track contract renewal requests and approvals</p>
+                <p className="text-xs text-gray-400 mt-2">
+                  {renewalsCount} total renewals
+                </p>
               </CardContent>
             </Card>
           </Link>

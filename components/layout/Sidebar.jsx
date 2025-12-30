@@ -14,7 +14,9 @@ import {
   User,
   CheckCircle,
   Users,
-  FileCheck
+  FileCheck,
+  ClipboardCheck,
+  RefreshCw
 } from 'lucide-react';
 
 const navigation = [
@@ -24,6 +26,8 @@ const navigation = [
   { name: 'Contract Approvals', href: '/contract-approvals', icon: CheckCircle },
   { name: 'Contract Negotiations', href: '/contract-negotiations', icon: Users },
   { name: 'Contract Executions', href: '/contract-executions', icon: FileCheck },
+  { name: 'Contract Audits', href: '/contract-audits', icon: ClipboardCheck },
+  { name: 'Contract Renewals', href: '/contract-renewals', icon: RefreshCw },
   { name: 'Drafts', href: '/drafts', icon: FileEdit },
   { name: 'Monitoring', href: '/monitoring', icon: Activity },
   { name: 'Documents', href: '/documents', icon: FolderOpen },

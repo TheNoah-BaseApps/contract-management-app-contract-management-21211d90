@@ -390,6 +390,241 @@
         }
       }
     },
+    "/api/contract-audits/{id}": {
+      "get": {
+        "summary": "Get a single contract audit",
+        "description": "Retrieve a specific contract audit by ID",
+        "tags": [
+          "Contract Audits"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Contract audit ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved contract audit"
+          },
+          "404": {
+            "description": "Contract audit not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a contract audit",
+        "description": "Update an existing contract audit",
+        "tags": [
+          "Contract Audits"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contract audit updated successfully"
+          },
+          "404": {
+            "description": "Contract audit not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a contract audit",
+        "description": "Delete a specific contract audit",
+        "tags": [
+          "Contract Audits"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract audit deleted successfully"
+          },
+          "404": {
+            "description": "Contract audit not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/contract-audits": {
+      "get": {
+        "summary": "Get all contract audits",
+        "description": "Retrieve a list of all contract audits with optional filtering",
+        "tags": [
+          "Contract Audits"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "contract_id",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by contract ID"
+          },
+          {
+            "in": "query",
+            "name": "auditor_name",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by auditor name"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved contract audits",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new contract audit",
+        "description": "Create a new contract audit record",
+        "tags": [
+          "Contract Audits"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "audit_id",
+                  "contract_id",
+                  "auditor_name",
+                  "audit_date"
+                ],
+                "properties": {
+                  "audit_id": {
+                    "type": "string"
+                  },
+                  "contract_id": {
+                    "type": "string"
+                  },
+                  "auditor_name": {
+                    "type": "string"
+                  },
+                  "audit_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "audit_scope": {
+                    "type": "string"
+                  },
+                  "compliance_findings": {
+                    "type": "string"
+                  },
+                  "discrepancies_found": {
+                    "type": "string"
+                  },
+                  "corrective_actions_taken": {
+                    "type": "string"
+                  },
+                  "audit_report_ref": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contract audit created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
     "/api/contract-drafts/{id}": {
       "get": {
         "summary": "Get draft by ID",
@@ -997,6 +1232,245 @@
           },
           "400": {
             "description": "Invalid input data"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/contract-renewals/{id}": {
+      "get": {
+        "summary": "Get a single contract renewal",
+        "description": "Retrieve a specific contract renewal by ID",
+        "tags": [
+          "Contract Renewals"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Contract renewal ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved contract renewal"
+          },
+          "404": {
+            "description": "Contract renewal not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a contract renewal",
+        "description": "Update an existing contract renewal",
+        "tags": [
+          "Contract Renewals"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Contract renewal updated successfully"
+          },
+          "404": {
+            "description": "Contract renewal not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a contract renewal",
+        "description": "Delete a specific contract renewal",
+        "tags": [
+          "Contract Renewals"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Contract renewal deleted successfully"
+          },
+          "404": {
+            "description": "Contract renewal not found"
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/api/contract-renewals": {
+      "get": {
+        "summary": "Get all contract renewals",
+        "description": "Retrieve a list of all contract renewals with optional filtering",
+        "tags": [
+          "Contract Renewals"
+        ],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "contract_id",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by contract ID"
+          },
+          {
+            "in": "query",
+            "name": "renewal_status",
+            "schema": {
+              "type": "string"
+            },
+            "description": "Filter by renewal status"
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "schema": {
+              "type": "integer",
+              "default": 50
+            },
+            "description": "Maximum number of records to return"
+          },
+          {
+            "in": "query",
+            "name": "offset",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            },
+            "description": "Number of records to skip"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully retrieved contract renewals",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "success": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      }
+                    },
+                    "count": {
+                      "type": "integer"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new contract renewal",
+        "description": "Create a new contract renewal record",
+        "tags": [
+          "Contract Renewals"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "renewal_id",
+                  "contract_id",
+                  "renewal_date",
+                  "renewed_by",
+                  "new_end_date",
+                  "renewal_status",
+                  "renewal_type"
+                ],
+                "properties": {
+                  "renewal_id": {
+                    "type": "string"
+                  },
+                  "contract_id": {
+                    "type": "string"
+                  },
+                  "renewal_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "renewed_by": {
+                    "type": "string"
+                  },
+                  "new_end_date": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "terms_modified": {
+                    "type": "string"
+                  },
+                  "renewal_status": {
+                    "type": "string"
+                  },
+                  "renewal_type": {
+                    "type": "string"
+                  },
+                  "renewal_approval_ref": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Contract renewal created successfully"
+          },
+          "400": {
+            "description": "Invalid input"
           },
           "500": {
             "description": "Server error"
