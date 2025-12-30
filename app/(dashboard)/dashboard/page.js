@@ -7,7 +7,7 @@ import ChartWidget from '@/components/dashboard/ChartWidget';
 import RecentActivities from '@/components/dashboard/RecentActivities';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import LoadingSpinner from '@/components/ui/LoadingSpinner';
-import { FileText, AlertTriangle, CheckCircle, Clock, Users, FileCheck, ClipboardCheck, RefreshCw, ClipboardList, Shield } from 'lucide-react';
+import { FileText, AlertTriangle, CheckCircle, Clock, Users, FileCheck, ClipboardCheck, RefreshCw, ClipboardList, Shield, HardDrive, XCircle, FileEdit } from 'lucide-react';
 import Link from 'next/link';
 
 export default function DashboardPage() {
@@ -16,6 +16,9 @@ export default function DashboardPage() {
   const [error, setError] = useState(null);
   const [auditsCount, setAuditsCount] = useState(0);
   const [renewalsCount, setRenewalsCount] = useState(0);
+  const [storageCount, setStorageCount] = useState(0);
+  const [terminationsCount, setTerminationsCount] = useState(0);
+  const [amendmentsCount, setAmendmentsCount] = useState(0);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -77,9 +80,68 @@ export default function DashboardPage() {
       }
     };
 
+    const fetchStorageCount = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await fetch('/api/contract-storage', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.data)) {
+            setStorageCount(data.data.length);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch storage count:', err);
+      }
+    };
+
+    const fetchTerminationsCount = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await fetch('/api/contract-terminations', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.data)) {
+            const pendingCount = data.data.filter(t => t.status === 'pending').length;
+            setTerminationsCount(pendingCount);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch terminations count:', err);
+      }
+    };
+
+    const fetchAmendmentsCount = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const res = await fetch('/api/contract-amendments', {
+          headers: { 'Authorization': `Bearer ${token}` }
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (data.success && Array.isArray(data.data)) {
+            const pendingCount = data.data.filter(a => a.status === 'pending').length;
+            setAmendmentsCount(pendingCount);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch amendments count:', err);
+      }
+    };
+
     fetchStats();
     fetchAuditsCount();
     fetchRenewalsCount();
+    fetchStorageCount();
+    fetchTerminationsCount();
+    fetchAmendmentsCount();
   }, []);
 
   if (loading) {
@@ -273,6 +335,57 @@ export default function DashboardPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-500">Monitor contract compliance and regulatory adherence</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/contract-storage">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <HardDrive className="h-5 w-5 text-slate-600" />
+                  <CardTitle className="text-lg">Contract Storage</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Manage contract storage and archival records</p>
+                <p className="text-xs text-gray-400 mt-2">
+                  {storageCount} total storage records
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/contract-terminations">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <XCircle className="h-5 w-5 text-red-600" />
+                  <CardTitle className="text-lg">Contract Terminations</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Track and manage contract terminations</p>
+                <p className="text-xs text-gray-400 mt-2">
+                  {terminationsCount} pending terminations
+                </p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/contract-amendments">
+            <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+              <CardHeader className="pb-3">
+                <div className="flex items-center space-x-2">
+                  <FileEdit className="h-5 w-5 text-violet-600" />
+                  <CardTitle className="text-lg">Contract Amendments</CardTitle>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Manage contract amendments and modifications</p>
+                <p className="text-xs text-gray-400 mt-2">
+                  {amendmentsCount} pending amendments
+                </p>
               </CardContent>
             </Card>
           </Link>

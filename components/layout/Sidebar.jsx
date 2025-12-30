@@ -18,7 +18,9 @@ import {
   ClipboardCheck,
   RefreshCw,
   ClipboardList,
-  Shield
+  Shield,
+  HardDrive,
+  XCircle
 } from 'lucide-react';
 
 const navigation = [
@@ -32,6 +34,9 @@ const navigation = [
   { name: 'Contract Compliance', href: '/contract-compliance', icon: Shield },
   { name: 'Contract Audits', href: '/contract-audits', icon: ClipboardCheck },
   { name: 'Contract Renewals', href: '/contract-renewals', icon: RefreshCw },
+  { name: 'Contract Storage', href: '/contract-storage', icon: HardDrive },
+  { name: 'Contract Terminations', href: '/contract-terminations', icon: XCircle },
+  { name: 'Contract Amendments', href: '/contract-amendments', icon: FileEdit },
   { name: 'Drafts', href: '/drafts', icon: FileEdit },
   { name: 'Monitoring', href: '/monitoring', icon: Activity },
   { name: 'Documents', href: '/documents', icon: FolderOpen },
